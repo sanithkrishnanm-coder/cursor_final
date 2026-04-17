@@ -1,0 +1,30 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Booking</title><link rel="stylesheet" href="assets/css/styles.css"></head>
+<body><script src="assets/js/main.js"></script><script src="assets/js/api.js"></script>
+<script>
+const mentorId = new URLSearchParams(location.search).get("mentor_id");
+mountLayout("Book Mentor Session", `<div class="card"><input id="scheduled-at" placeholder="YYYY-MM-DD HH:MM"><textarea id="notes" placeholder="Notes"></textarea><button onclick="createBooking()">Confirm Booking</button><p id="msg" class="muted"></p></div>`);
+
+async function createBooking() {
+  const scheduledAtEl = document.getElementById("scheduled-at");
+  const notesEl = document.getElementById("notes");
+  const msgEl = document.getElementById("msg");
+
+  if (!mentorId) {
+    msgEl.textContent = "Invalid mentor id.";
+    return;
+  }
+
+  const res = await apiRequest("/bookings/", "POST", {
+    mentor_id: mentorId,
+    scheduled_at: scheduledAtEl.value,
+    notes: notesEl.value
+  }, true);
+
+  if (res.success) {
+    location.href = "booking-confirmation.html";
+  } else {
+    msgEl.textContent = res.message;
+  }
+}
+</script></body></html>

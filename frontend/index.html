@@ -1,0 +1,63 @@
+<!doctype html>
+<html>
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Home</title><link rel="stylesheet" href="assets/css/styles.css"></head>
+<body>
+<script src="assets/js/main.js"></script>
+<script>
+document.body.innerHTML = `
+  ${navTemplate()}
+  <main class="container">
+    <section class="hero">
+      <div>
+        <h1>Shape Your Career With Confidence</h1>
+        <p>Discover career paths, connect with mentors, and plan your future with clarity.</p>
+        <div class="hero-actions">
+          <button id="explore-careers-btn">Explore Careers</button>
+          <button id="find-mentors-btn" class="btn-outline">Find Mentors</button>
+        </div>
+      </div>
+    </section>
+    <section style="margin-top:26px;">
+      <h2 class="page-title" style="font-size:36px;">Everything You Need to Grow</h2>
+      <p class="page-subtitle">Personalized tools for discovery, learning, and mentorship.</p>
+      <div class="grid">
+        <div id="feature-careers" class="card feature-card" tabindex="0">
+          <h3>Career Exploration</h3>
+          <p>Search roles, understand skills, and discover growth opportunities.</p>
+        </div>
+        <div id="feature-mentors" class="card feature-card" tabindex="0">
+          <h3>Mentor Sessions</h3>
+          <p>Book sessions, track progress, and learn from real experts.</p>
+        </div>
+        <div id="feature-goals" class="card feature-card" tabindex="0">
+          <h3>Goal Tracking</h3>
+          <p>Set milestones and monitor your progress through your dashboard.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer>Career Guidance Platform</footer>
+`;
+
+document.getElementById("explore-careers-btn").addEventListener("click", function () {
+  window.location.href = "careers.html";
+});
+
+document.getElementById("find-mentors-btn").addEventListener("click", function () {
+  window.location.href = "mentors.html";
+});
+
+document.getElementById("feature-careers").addEventListener("click", function () {
+  window.location.href = "careers.html";
+});
+
+document.getElementById("feature-mentors").addEventListener("click", function () {
+  window.location.href = "mentors.html";
+});
+
+document.getElementById("feature-goals").addEventListener("click", function () {
+  window.location.href = "dashboard.html";
+});
+</script>
+</body>
+</html>

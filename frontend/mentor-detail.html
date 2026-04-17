@@ -1,0 +1,22 @@
+﻿<!doctype html>
+<html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Mentor Detail</title><link rel="stylesheet" href="assets/css/styles.css"></head>
+<body><script src="assets/js/main.js"></script><script src="assets/js/api.js"></script>
+<script>
+mountLayout("Mentor Profile", `<div class="card" id="detail"></div><div class="card"><a id="book-link" href="#"><button type="button">Book Session</button></a></div>`);
+const id = new URLSearchParams(location.search).get("id");
+const detailEl = document.getElementById("detail");
+const bookLinkEl = document.getElementById("book-link");
+
+if (!id) {
+  detailEl.innerHTML = "<p>Invalid mentor id.</p>";
+} else {
+  apiRequest(`/mentors/${id}`).then(res => {
+    if (res.success) {
+      detailEl.innerHTML = `<h3>${res.data.name}</h3><p>${res.data.bio}</p><p>Rate: $${res.data.hourly_rate}/hour</p>`;
+      bookLinkEl.href = `booking.html?mentor_id=${id}`;
+    } else {
+      detailEl.innerHTML = `<p>${res.message}</p>`;
+    }
+  });
+}
+</script></body></html>

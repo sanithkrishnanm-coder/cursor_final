@@ -1,0 +1,32 @@
+﻿<!doctype html>
+<html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Profile</title><link rel="stylesheet" href="assets/css/styles.css"></head>
+<body><script src="assets/js/main.js"></script><script src="assets/js/api.js"></script>
+<script>
+mountLayout("Profile", `<div class="card"><input id="name" placeholder="Name"><input id="goals" placeholder="Goals (comma separated)"><button onclick="saveProfile()">Update</button><p id="msg" class="muted"></p></div>`);
+
+async function loadProfile() {
+  const nameEl = document.getElementById("name");
+  const goalsEl = document.getElementById("goals");
+  const msgEl = document.getElementById("msg");
+  const res = await apiRequest("/users/profile", "GET", null, true);
+  if (!res.success) {
+    msgEl.textContent = res.message;
+    return;
+  }
+  nameEl.value = res.data.name || "";
+  goalsEl.value = (res.data.goals || []).join(", ");
+}
+
+async function saveProfile() {
+  const nameEl = document.getElementById("name");
+  const goalsEl = document.getElementById("goals");
+  const msgEl = document.getElementById("msg");
+  const res = await apiRequest("/users/profile", "PUT", {
+    name: nameEl.value,
+    goals: goalsEl.value.split(",").map(g => g.trim()).filter(Boolean)
+  }, true);
+  msgEl.textContent = res.message;
+}
+
+loadProfile();
+</script></body></html>

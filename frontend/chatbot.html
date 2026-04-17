@@ -1,0 +1,33 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Career Chatbot</title>
+  <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+<script src="assets/js/main.js"></script>
+<script src="assets/js/api.js"></script>
+<script src="assets/js/chatbot.js"></script>
+<script>
+mountLayout("Career Guidance Chatbot", `
+  <div class="chat-shell">
+    <div class="card chat-panel">
+      <div class="chat-header">
+        <h2 class="chat-title">Ask Career Assistant</h2>
+        <span id="chat-status" class="chat-status">Online</span>
+      </div>
+      <div id="chat-messages" class="chat-messages"></div>
+      <div id="chat-suggestions" class="chat-suggestions"></div>
+      <div class="chat-actions">
+        <input id="chat-input" placeholder="Type your message... (e.g., suggest careers)">
+        <button id="chat-send-btn" type="button">Send</button>
+      </div>
+    </div>
+  </div>
+`);
+initChatbotPage();
+</script>
+</body>
+</html>

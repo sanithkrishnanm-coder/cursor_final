@@ -1,0 +1,43 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Sign Up</title><link rel="stylesheet" href="assets/css/styles.css"></head>
+<body>
+<script src="assets/js/main.js"></script><script src="assets/js/api.js"></script>
+<script>
+mountLayout("Sign Up", `
+  <div class="card">
+    <input id="signup-name" placeholder="Name">
+    <input id="signup-email" placeholder="Email">
+    <input id="signup-password" type="password" placeholder="Password">
+    <select id="signup-role">
+      <option value="student">Student</option>
+      <option value="mentor">Mentor</option>
+      <option value="admin">Admin</option>
+    </select>
+    <button onclick="signup()">Create Account</button>
+    <p class="muted" id="msg"></p>
+    <p class="auth-links">Already have an account? <a href="login.html">Login here</a></p>
+  </div>
+`);
+
+async function signup() {
+  const nameEl = document.getElementById("signup-name");
+  const emailEl = document.getElementById("signup-email");
+  const passwordEl = document.getElementById("signup-password");
+  const roleEl = document.getElementById("signup-role");
+  const msgEl = document.getElementById("msg");
+  const res = await apiRequest("/auth/register", "POST", {
+    name: nameEl.value,
+    email: emailEl.value,
+    password: passwordEl.value,
+    role: roleEl.value
+  });
+  if (res.success) {
+    localStorage.setItem("token", res.data.token);
+    localStorage.setItem("user", JSON.stringify(res.data.user));
+    location.href = "dashboard.html";
+  } else {
+    msgEl.textContent = res.message;
+  }
+}
+</script>
+</body></html>

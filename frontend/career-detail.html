@@ -1,0 +1,20 @@
+﻿<!doctype html>
+<html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Career Detail</title><link rel="stylesheet" href="assets/css/styles.css"></head>
+<body><script src="assets/js/main.js"></script><script src="assets/js/api.js"></script>
+<script>
+mountLayout("Career Details", `<div class="card" id="detail"></div>`);
+const id = new URLSearchParams(location.search).get("id");
+const detailEl = document.getElementById("detail");
+
+if (!id) {
+  detailEl.innerHTML = "<p>Invalid career id.</p>";
+} else {
+  apiRequest(`/careers/${id}`).then(res => {
+    if (res.success) {
+      detailEl.innerHTML = `<h3>${res.data.career_title}</h3><p>${res.data.description}</p><p><b>Skills:</b> ${(res.data.skills || []).join(", ")}</p>`;
+    } else {
+      detailEl.innerHTML = `<p>${res.message}</p>`;
+    }
+  });
+}
+</script></body></html>

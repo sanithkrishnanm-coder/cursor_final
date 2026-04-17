@@ -1,0 +1,24 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Careers</title><link rel="stylesheet" href="assets/css/styles.css"></head>
+<body><script src="assets/js/main.js"></script><script src="assets/js/api.js"></script>
+<script>
+let page = 1;
+mountLayout("Career Listings", `<div id="list" class="grid"></div><button id="load-more-btn" type="button">Load More</button><p id="msg" class="muted"></p>`);
+
+async function fetchCareers() {
+  const listEl = document.getElementById("list");
+  const msgEl = document.getElementById("msg");
+  const res = await apiRequest(`/careers/?page=${page}&limit=6`);
+  if (!res.success) {
+    msgEl.textContent = res.message;
+    return;
+  }
+
+  const items = res.data.items || [];
+  listEl.innerHTML += items.map(i => `<div class="card"><h3>${i.career_title}</h3><p>${i.description}</p><a href="career-detail.html?id=${i.id}"><button type="button">View Details</button></a></div>`).join("");
+  page += 1;
+}
+
+document.getElementById("load-more-btn").addEventListener("click", fetchCareers);
+fetchCareers();
+</script></body></html>

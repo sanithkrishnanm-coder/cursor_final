@@ -1,0 +1,21 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Dashboard</title><link rel="stylesheet" href="assets/css/styles.css"></head>
+<body><script src="assets/js/main.js"></script><script src="assets/js/api.js"></script>
+<script>
+mountLayout("User Dashboard", `<div class="grid"><div class="card"><h3>Goals</h3><p id="goals"></p></div><div class="card"><h3>My Bookings</h3><div id="bookings"></div></div></div>`);
+async function load(){
+ const goalsEl = document.getElementById("goals");
+ const bookingsEl = document.getElementById("bookings");
+ const profile=await apiRequest("/users/profile","GET",null,true);
+ const bookingsRes=await apiRequest("/bookings/me","GET",null,true);
+ if(!profile.success){
+   goalsEl.textContent = profile.message;
+   bookingsEl.innerHTML = "<p>Please login to view bookings.</p>";
+   return;
+ }
+ goalsEl.textContent=(profile.data?.goals||[]).join(", ")||"No goals added.";
+ const bookingsData = bookingsRes.success ? (bookingsRes.data || []) : [];
+ bookingsEl.innerHTML=bookingsData.map(b=>`<p>${b.scheduled_at} - ${b.status}</p>`).join("")||"<p>No bookings yet.</p>";
+}
+load();
+</script></body></html>

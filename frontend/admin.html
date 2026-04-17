@@ -1,0 +1,17 @@
+﻿<!doctype html>
+<html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Admin Panel</title><link rel="stylesheet" href="assets/css/styles.css"></head>
+<body><script src="assets/js/main.js"></script><script src="assets/js/api.js"></script>
+<script>
+mountLayout("Admin Panel", `<div class="card"><input id="career-title" placeholder="Career title"><textarea id="career-description" placeholder="Description"></textarea><button onclick="addCareer()">Add Career</button><p id="msg" class="muted"></p></div>`);
+
+async function addCareer() {
+  const titleEl = document.getElementById("career-title");
+  const descriptionEl = document.getElementById("career-description");
+  const msgEl = document.getElementById("msg");
+  const res = await apiRequest("/admin/careers", "POST", {
+    career_title: titleEl.value,
+    description: descriptionEl.value
+  }, true);
+  msgEl.textContent = res.message;
+}
+</script></body></html>
