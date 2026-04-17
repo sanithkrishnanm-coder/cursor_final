@@ -21,7 +21,7 @@ def create_app():
 
     CORS(
         app,
-        resources={r"/api/*": {"origins": app.config["CORS_ORIGINS"]}},
+        resources={r"/api/*": {"origins": "https://career-guidance-frontend-tau.vercel.app"},
         supports_credentials=True,
     )
 
