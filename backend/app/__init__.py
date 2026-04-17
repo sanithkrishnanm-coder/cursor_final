@@ -20,10 +20,10 @@ def create_app():
     seed_default_careers()
 
     CORS(
-        app,
-        resources={r"/api/*": {"origins": "https://career-guidance-frontend-tau.vercel.app"},
-        supports_credentials=True,
-    )
+    app,
+    resources={r"/*": {"origins": "https://career-guidance-frontend-tau.vercel.app"}},
+    supports_credentials=True,
+)
 
     register_error_handlers(app)
     register_blueprints(app)
