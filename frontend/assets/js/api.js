@@ -2,7 +2,6 @@ const API_BASE_URLS = [
   "https://cursor-final.onrender.com/api/v1",
   "http://localhost:5000/api/v1"
 ];
-
 function getToken() {
   return localStorage.getItem("token");
 }
