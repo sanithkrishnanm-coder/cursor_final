@@ -21,7 +21,7 @@ def create_app():
 
     CORS(
     app,
-    resources={r"/*": {"origins": "https://cursor-final-gilt.vercel.app/"}},
+    resources={r"/*": {"origins": "https://cursor-final.onrender.com/"}},
     supports_credentials=True,
 )
 
