@@ -1,5 +1,5 @@
 const API_BASE_URLS = [
-  "https://career-guidance-backend-0g7p.onrender.com",
+  "https://cursor-final.onrender.com",
   "http://localhost:5000/api/v1"
 ];
 
